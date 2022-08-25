@@ -1,5 +1,10 @@
 const http = require("http");
 const url = require("url");
+const fs = require("fs");
+
+const data = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
+const dataObj = JSON.parse(data);
+console.log(dataObj);
 
 const server = http.createServer((req, res) => {
   console.log(req.url);
@@ -10,6 +15,8 @@ const server = http.createServer((req, res) => {
     res.end("This is overview");
   } else if (pathName === "/products") {
     res.end("This is product");
+  } else if (pathName === "/api") {
+    res.end(data);
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
